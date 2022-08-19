@@ -27,7 +27,7 @@ console.log("connected");
 /////////////////////////
 // VARIABLES
 /////////////////////////
-const URL = "http://www.omdbapi.com/?apikey=83ec9128&t=frozen";
+const URL = "http://www.omdbapi.com/?apikey=83ec9128&t=";
 
 /////////////////////////
 // CACHED ELEMENTS / ELEMENTS REFRENCES
@@ -35,17 +35,23 @@ const URL = "http://www.omdbapi.com/?apikey=83ec9128&t=frozen";
 const $title = $( '#title' )
 const $year = $('#year')
 const $rated = $( '#rated' )
+const $form = $('form')
+const $input = $( 'input[type="text"]' )
 
 /////////////////////////
 // EVENT LISTENERS
 /////////////////////////
+$form.on( 'submit', handleGetData )
 
 /////////////////////////
 // FUNCTIONS
 /////////////////////////
-function handleGetData ()
+function handleGetData (event)
 {
-    $.ajax(URL).then(
+    event.preventDefault()
+    userInput = $input.val()
+
+    $.ajax(URL+userInput).then(
       function (data) {
         console.log("movie is ready!");
             console.log( data );

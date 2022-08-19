@@ -23,15 +23,40 @@ console.log("connected");
 
 // console.log($.ajax('http://www.omdbapi.com/?apikey=83ec9128&t=titan'))
 
-const URL = "http://www.omdbapi.com/?apikey=83ec9128&=titan";
 
-$.ajax(URL).then(
-  function (data) {
-    console.log("movie is ready!");
-    console.log(data);
-  },
-  function (error) {
-      console.log( "we broke it!" )
-      console.log(error);
-  }
-);
+/////////////////////////
+// VARIABLES
+/////////////////////////
+const URL = "http://www.omdbapi.com/?apikey=83ec9128&t=frozen";
+
+/////////////////////////
+// CACHED ELEMENTS / ELEMENTS REFRENCES
+/////////////////////////
+const $title = $( '#title' )
+const $year = $('#year')
+const $rated = $( '#rated' )
+
+/////////////////////////
+// EVENT LISTENERS
+/////////////////////////
+
+/////////////////////////
+// FUNCTIONS
+/////////////////////////
+function handleGetData ()
+{
+    $.ajax(URL).then(
+      function (data) {
+        console.log("movie is ready!");
+            console.log( data );
+            $title.text( data.Title )
+            $year.text( data.Year )
+            $rated.text( data.Rated )
+            $('main').append(`<img src="${data.Poster}" alt="${data.Title}"/>`)
+      },
+      function (error) {
+          console.log( "we broke it!" )
+          console.log(error);
+      }
+    );
+}
